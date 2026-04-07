@@ -1,0 +1,26 @@
+{
+  "cameras": [
+    {
+      "id": 100,
+      "type": "IP",
+      "label": "Front IP Camera",
+      "vendor": "Dahua",
+      "sourceType": "rtsp",
+      "address1":"rtsp://admin:Admin1234@192.168.1.124:554/cam/realmonitor?channel=1&subtype=0",
+      "address2":"rtsp://admin:Admin1234@192.168.1.124:554/cam/realmonitor?channel=1&subtype=1",
+      "codec": "h264"
+    },
+    {
+      "id": 101,
+      "type": "USB",
+      "label": "Front Thermal Camera",
+      "vendor": "Caddix",
+      "sourceType": "MJPG",
+      "address1":"/dev/v4l/by-id/usb-MACROSILICON_AFN_Cap_video_20200909-video-index0",
+      "formats": [
+        {"name": "High", "width": 1280, "height": 720, "fps":  30},
+        {"name": "Low", "width": 640, "height": 480, "fps":  15}
+      ]
+    }
+  ]
+}
