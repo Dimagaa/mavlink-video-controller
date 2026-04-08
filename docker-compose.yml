@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  uav-video:
+    image: dimaga/video-stream-manager:latest
+    container_name: uav-video
+
+    network_mode: host
+
+    restart: unless-stopped
+
+    volumes:
+      - /dev/v4l:/dev/v4l
+
+    privileged: true
