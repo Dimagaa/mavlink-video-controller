@@ -19,7 +19,7 @@ class UsbToRtpStream {
 
         val enc = ElementFactory.make("x264enc", "enc")
         enc.set("bitrate", 2000)
-        enc.set("tune", "zerolatency")
+        enc.set("tune", 0x00000004)
 
         val pay = ElementFactory.make("rtph264pay", "pay")
 
