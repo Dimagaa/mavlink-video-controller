@@ -15,10 +15,10 @@ class RtspToRtpStream {
         src.set("location", "rtsp://admin:Admin1234@192.168.1.124:554/cam/realmonitor?channel=1&subtype=0")
         src.set("latency", 0)
 
-        val depay = ElementFactory.make("rtph264depay", "depay")
+        val depay = ElementFactory.make("rtph265depay", "depay")
             ?: error("Failed to create depay")
 
-        val pay = ElementFactory.make("rtph264pay", "pay")
+        val pay = ElementFactory.make("rtph265pay", "pay")
             ?: error("Failed to create pay")
 
         val sink = ElementFactory.make("udpsink", "sink")
