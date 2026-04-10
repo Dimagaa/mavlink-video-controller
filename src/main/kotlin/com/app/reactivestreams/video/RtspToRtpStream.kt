@@ -2,14 +2,11 @@ package com.app.reactivestreams.video
 
 import org.freedesktop.gstreamer.Element
 import org.freedesktop.gstreamer.ElementFactory
-import org.freedesktop.gstreamer.Gst
 import org.freedesktop.gstreamer.Pipeline
 import org.freedesktop.gstreamer.State
 
 class RtspToRtpStream {
     fun play() {
-        Gst.init("rtsp-to-rtp")
-
         val pipeline = Pipeline("rtsp-pipeline")
 
         val src = ElementFactory.make("rtspsrc", "src")
@@ -48,7 +45,5 @@ class RtspToRtpStream {
         }
 
         pipeline.state = State.PLAYING
-
-        Gst.main()
     }
 }

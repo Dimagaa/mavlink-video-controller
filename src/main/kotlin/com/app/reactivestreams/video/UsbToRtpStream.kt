@@ -2,14 +2,11 @@ package com.app.reactivestreams.video
 
 import org.freedesktop.gstreamer.Element
 import org.freedesktop.gstreamer.ElementFactory
-import org.freedesktop.gstreamer.Gst
 import org.freedesktop.gstreamer.Pipeline
 import org.freedesktop.gstreamer.State
 
 class UsbToRtpStream {
     fun play() {
-        Gst.init("usb-stream")
-
         val pipeline = Pipeline("usb-pipeline")
 
         val src = ElementFactory.make("v4l2src", "src")
@@ -34,7 +31,5 @@ class UsbToRtpStream {
         }
 
         pipeline.state = State.PLAYING
-
-        Gst.main()
     }
 }
