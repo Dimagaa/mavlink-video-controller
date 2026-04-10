@@ -3,15 +3,9 @@ FROM gradle:8.7-jdk21 AS builder
 
 WORKDIR /build
 
-COPY gradlew ./
-COPY gradle ./gradle
-RUN chmod +x gradlew
-
-COPY build.gradle.kts settings.gradle.kts gradle.properties ./
-
-RUN ./gradlew dependencies --no-daemon || true
-
 COPY . .
+
+RUN chmod +x gradlew && sed -i 's/\r$//' gradlew
 
 RUN ./gradlew clean shadowJar --no-daemon
 
