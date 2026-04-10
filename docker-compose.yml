@@ -5,7 +5,7 @@ services:
 
     network_mode: host
 
-    restart: no
+    restart: unless-stopped
 
     volumes:
       - /dev/v4l:/dev/v4l
