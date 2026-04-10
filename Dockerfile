@@ -1,3 +1,22 @@
+# -------- STAGE 1: BUILD --------
+FROM gradle:8.7-jdk21 AS builder
+
+WORKDIR /build
+
+COPY gradlew ./
+COPY gradle ./gradle
+RUN chmod +x gradlew
+
+COPY build.gradle.kts settings.gradle.kts gradle.properties ./
+
+RUN ./gradlew dependencies --no-daemon || true
+
+COPY . .
+
+RUN ./gradlew clean shadowJar --no-daemon
+
+
+# -------- STAGE 2: RUNTIME --------
 FROM eclipse-temurin:21-jre-jammy
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -14,12 +33,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     v4l-utils \
     && rm -rf /var/lib/apt/lists/*
 
-# JNA + GStreamer
 ENV LD_LIBRARY_PATH=/usr/lib/aarch64-linux-gnu:/usr/lib/x86_64-linux-gnu
 ENV GST_PLUGIN_PATH=/usr/lib/aarch64-linux-gnu/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0
 
 WORKDIR /app
 
-COPY build/libs/*-all.jar app.jar
+COPY --from=builder /build/build/libs/*-all.jar app.jar
 
 CMD ["java", "-jar", "app.jar"]
